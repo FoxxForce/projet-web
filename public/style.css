@@ -1,0 +1,35 @@
+
+#popup{
+
+    display:none;
+    height:100%;
+    position:fixed;
+    text-align:center;
+    top:0;
+    width:100%;
+    z-index:10000;
+}
+
+#popup > div {
+    background-color: #fff;
+    padding: 15px 5%;
+}
+
+.popupClose:hover {
+    background-color: black;
+}
+.popupButton {
+    cursor: pointer;
+    font-size: 20px;
+    margin: 20px;
+    display: inline-block;
+    font-weight: bold;
+}
+.row{
+    height: 800px;
+    overflow: scroll;
+}
+
+button{
+    display: block;
+}

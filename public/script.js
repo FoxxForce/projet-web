@@ -43,7 +43,7 @@ $(document).ready(function() {
     $.get("http://localhost:8080/menu" ,{},
     function(data) {
       let elphoto = "";
-      console.log(data);  
+      console.log(data);
       for(let i=0; i<data.length; i++){
         elphoto = '<button id="' + data[i]['nom'] +'" type="button">' +data[i]['nom']+ 'menu</button>';
         elphoto += '<ul id="liste'+ data[i]['nom'] +'">'
@@ -55,7 +55,7 @@ $(document).ready(function() {
         $('#liste'+data[i]['nom']).hide();
         $('#'+data[i]['nom']).click(function() {
           $('#liste'+data[i]['nom']).slideToggle();
-      }); 
+      });
         $('#liste'+data[i]['nom']+' .ajoutPizza').click(function(){
           $('.popup').show();
           $('#popup').show();
@@ -68,10 +68,10 @@ $(document).ready(function() {
           });
         });
       }
-      
-      
+
+
     });
-    
+
   }
   menu();
        /* $('#liste'+data[i]['nom']+' .ajoutBoisson').click(function(){
@@ -96,7 +96,7 @@ $(document).ready(function() {
         });
       }
     });*/
-  
+
 
   $('.ajoutPizza').click(function(){
     $('.popup').show();
@@ -118,7 +118,7 @@ $(document).ready(function() {
   let listeExtra = $('#listExtra');
   listeExtra.hide();
 
-  
+
 
   function ajout(e){
     $('#pizza.popup').show();

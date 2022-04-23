@@ -8,21 +8,23 @@ const server = express();
 
 const pg = require('pg');
 const pool = new pg.Pool({
-user: 'cheikou',
+user: 'useradmin',
 host: 'localhost',
 database: 'projet2',
-password: ' ', // accès à une information externe
+password: 'mypass', // accès à une information externe
 port: 5432
 });
 
 async function pizza(){
   const client = await pool.connect();
   let res = await client.query('SELECT * FROM pizza');
+  client.release();
   return res;
 }
 async function menu(){
   const client = await pool.connect();
   let res = await client.query('SELECT * FROM menu');
+  client.release();
   return res;
 }
 server.get('/', function (req, res) {
@@ -30,7 +32,7 @@ server.get('/', function (req, res) {
 });
 
 server.listen(port, () => {
-  console.log('Server running at http://localhost:${port} ');
+  console.log('Server running at http://localhost:'+port);
 });
 
 server.get("/pizza", (req, res) => {

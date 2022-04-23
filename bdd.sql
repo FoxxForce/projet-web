@@ -5,6 +5,7 @@ drop table if exists Pizza cascade;
 drop table if exists Ingredient cascade;
 drop table if exists Sauce cascade;
 drop table if exists Composition cascade;
+drop table if exists Menu cascade;
 
 
 create table Entree (nom text primary key, photo text);
@@ -17,12 +18,16 @@ create table Composition (nomPizza text, nomIngredient text,
                           FOREIGN KEY (nomIngredient) REFERENCES Ingredient(nom));
 create table Menu (nom text primary key, nb_pizza integer, nb_boisson integer, max_boisson integer, nb_entree integer);
 
+drop user if exists useradmin;
+create user useradmin with password 'mypass';
+grant all privileges on all tables in schema public to useradmin;
+
 insert into menu values
   ('Extra', 2, 2, 2, 2),
   ('Mega', 3, 2, 2, 2),
   ('Giga', 4, 3, 2, 2);
 
-insert into pizza values 
+insert into pizza values
   ('MARGdHERITA', 20, 'MARGHERITA.webp'),
   ('BEreLLACHO', 20, 'BELLACHO.webp'),
   ('MARGghHERITA1', 20, 'MARGHERITA.webp'),

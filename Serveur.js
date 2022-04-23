@@ -15,9 +15,14 @@ password: ' ', // accès à une information externe
 port: 5432
 });
 
-async function op(){
+async function pizza(){
   const client = await pool.connect();
   let res = await client.query('SELECT * FROM pizza');
+  return res;
+}
+async function menu(){
+  const client = await pool.connect();
+  let res = await client.query('SELECT * FROM menu');
   return res;
 }
 server.get('/', function (req, res) {
@@ -29,13 +34,18 @@ server.listen(port, () => {
 });
 
 server.get("/pizza", (req, res) => {
-    let a = op().then(resultat=>{res.json(resultat.rows)})
+    let a = pizza().then(resultat=>{res.json(resultat.rows)})
     .catch(err => console.err-(err.stack));
 
 });
+server.get("/menu", (req, res) => {
+  let a = menu().then(resultat=>{res.json(resultat.rows)})
+  .catch(err => console.err-(err.stack));
+
+});
+
 
 server.get("/images/:photo", (req, res) =>{
-  console.log(req);
   res.sendFile(req.params.photo, {root: 'public/images'});
 });
 

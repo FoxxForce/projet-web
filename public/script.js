@@ -38,7 +38,8 @@ $(document).ready(function() {
     });
   }
   ajout('pizza');
-
+  ajout('entree');
+  ajout('boisson');
   function menu(){
     $.get("http://localhost:8080/menu" ,{},
     function(data) {
@@ -46,27 +47,65 @@ $(document).ready(function() {
       console.log(data);
       for(let i=0; i<data.length; i++){
         elphoto = '<button id="' + data[i]['nom'] +'" type="button">' +data[i]['nom']+ 'menu</button>';
-        elphoto += '<ul id="liste'+ data[i]['nom'] +'">'
-        elphoto += '<li class="popupButton ajoutPizza">Ajout pizza</li>'
-        elphoto += '<li class="popupButton ajoutEntree">Ajout  entrée</li>'
-        elphoto += '<li class="popupButton ajoutBoisson">Ajout boisson</li></ul>'
         console.log(elphoto);
         $('body').append(elphoto);
         $('#liste'+data[i]['nom']).hide();
         $('#'+data[i]['nom']).click(function() {
-          $('#liste'+data[i]['nom']).slideToggle();
-      });
-        $('#liste'+data[i]['nom']+' .ajoutPizza').click(function(){
-          $('.popup').show();
           $('#popup').show();
           $('.pizza').show();
+          $('.ajoutPizza').hide();
+          $('.ajoutBoisson').hide();
+          $('.ajoutEntree').show();
+          $('.confirmer').hide();
           $('.pizza .choix').off().on('change', function() {
-            console.log("okok" +data[i]['nb_pizza']);
-            if($('input[type=checkbox]:checked').length > data[i]['nb_pizza']) {
+            if($('.pizza input[type=checkbox]:checked').length > data[i]['nb_pizza']) {
                 this.checked = false;
             }
           });
-        });
+          $('.ajoutPizza').click(function(){
+            $('#popup .container-fluid').hide();
+            $('.ajoutPizza').hide();
+            $('.ajoutBoisson').hide();
+            $('.ajoutEntree').show();
+            $('#popup').show();
+            $('.pizza').show();
+            $('.confirmer').hide();
+            $('.pizza .choix').off().on('change', function() {
+              if($('.pizza input[type=checkbox]:checked').length > data[i]['nb_pizza']) {
+                  this.checked = false;
+              }
+            });
+          });
+          $('.ajoutEntree').click(function(){
+            $('#popup .container-fluid').hide();
+            $('.ajoutPizza').show();
+            $('.confirmer').hide();
+            $('.ajoutBoisson').show();
+            $('.ajoutEntree').hide();
+            $('#popup').show();
+            $('.entree').show();
+            $('.entree .choix').off().on('change', function() {
+              if($('.entree input[type=checkbox]:checked').length > data[i]['nb_entree']) {
+                  this.checked = false;
+              }
+            });
+          });
+          $('.ajoutBoisson').click(function(){
+            $('.confirmer').show();
+            $('#popup .container-fluid').hide();
+            $('.ajoutPizza').hide();
+            $('.ajoutBoisson').hide();
+            $('.ajoutEntree').show();
+            $('#popup').show();
+            $('.boisson').show();
+            $('.boisson .choix').off().on('change', function() {
+              if($('.boisson input[type=checkbox]:checked').length > data[i]['nb_boisson']) {
+                  this.checked = false;
+              }
+            });
+          });
+      });
+        
       }
 
 
@@ -74,77 +113,11 @@ $(document).ready(function() {
 
   }
   menu();
-       /* $('#liste'+data[i]['nom']+' .ajoutBoisson').click(function(){
-          $('.popup').show();
-          $('#popup').show();
-          $('.boisson').show();
-          $('.boisson .choix').on('change', function() {
-            if($(this).siblings(':checked').length >= data[i]['nb_boisson']) {
-                this.checked = false;
-            }
-          });
-        });
-        $('#liste'+data[i]['nom']+' .ajoutEntree').click(function(){
-          $('.popup').show();
-          $('#popup').show();
-          $('.entree').show();
-          $('.entree .choix').on('change', function() {
-            if($(this).siblings(':checked').length >= data[i]['nb_entree']) {
-                this.checked = false;
-            }
-          });
-        });
-      }
-    });*/
 
-
-  $('.ajoutPizza').click(function(){
-    $('.popup').show();
-    $('#popup').show();
-    $('.pizza').show();
-    });
     $('.popupClose').click(function(){
-        $('.popup').hide();
         $('#popup').hide();
         $('#popup .container-fluid').hide();
     });
 
 
 });
-
-/*
-$(document).ready(function() {
-  let extra = $('#extra');
-  let listeExtra = $('#listExtra');
-  listeExtra.hide();
-
-
-
-  function ajout(e){
-    $('#pizza.popup').show();
-    $('.row').empty();
-    $.get("http://localhost:8080/"+ e,{},
-    function(data) {
-      let elphoto = '<div class="container-fluid"><div class="row">';
-      for(let i=0; i<data.length; i++){
-        elphoto += ' <div id="' + data[i]["photo"] + '"';
-        elphoto += ' class="col-lg-3 col-md-6 col-sm-3 photo">';
-        elphoto += '<p>' +data[i]["photo"] + '</p>' + '<img height="200" width="200"  src="../images/'+data[i]["photo"] + '"></div>';
-      }
-      elphoto += '</div></div>';
-      console.log("elphoto");
-      $('#popup').append(elphoto );
-    });
-  }
-
-  extra.click(function() {
-    listeExtra.slideToggle();
-  });
-
-  $('#ajoutPizza').click(ajout("pizza"));
-
-  $('.popupClose').click(function(){
-      $('.popup').hide();
-      $('#listPizza').empty();
-    });
-*/

@@ -8,7 +8,7 @@ drop table if exists Composition cascade;
 drop table if exists Menu cascade;
 
 
-create table Entree (nom text primary key, photo text);
+create table Entree (nom text primary key, prix integer, photo text);
 create table Sauce (nom text primary key, prix int, photo text);
 create table Boisson (nom text primary key, taille int, prix int, photo text);
 create table Pizza (nom text primary key, prix integer, photo text);
@@ -47,13 +47,14 @@ insert into pizza values
   ('BELLA4CHO', 20, 'BELLACHO.webp'),
   ('MARGHERITA1', 20, 'MARGHERITA.webp'),
   ('MARGH87ERIT2', 20, 'MARGHERITA.webp'),
-  ('BE46LgLACHO', 20, 'BELLACHO.webp'),
-  ('MARG5g6HERITA1', 20, 'MARGHERITA.webp'),
-  ('MARGHgf6ERIT2', 20, 'MARGHERITA.webp'),
-  ('BELLA6CHO', 20, 'BELLACHO.webp'),
-  ('MARGHE897RITA1', 20, 'MARGHERITA.webp'),
-  ('MARG233gHERIT2', 20, 'MARGHERITA.webp'),
-  ('BELLA34CHO', 20, 'BELLACHO.webp'),
-  ('MARG777HERITA1', 20, 'MARGHERITA.webp'),
-  ('MARGgfHER433IT2', 20, 'MARGHERITA.webp'),
-  ('MARgfGH88ERITA3', 20, 'MARGHERITA.webp');
+  ('BE46LgLACHO', 20, 'BELLACHO.webp');
+insert into entree values
+  ('SALADE1', 20, 'MARGHERITA.webp'),
+  ('SALADE2', 20, 'MARGHERITA.webp'),
+  ('SALADE3', 20, 'BELLACHO.webp'),
+  ('SALADE4', 20, 'MARGHERITA.webp');
+insert into boisson values
+  ('BOISSON1', 1, 20, 'MARGHERITA.webp'),
+  ('BOISSON2', 1, 20, 'BELLACHO.webp'),
+  ('BOISSON3', 1, 20, 'MARGHERITA.webp'),
+  ('BOISSON4', 1, 20, 'MARGHERITA.webp');

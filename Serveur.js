@@ -15,18 +15,13 @@ password: 'mypass', // accès à une information externe
 port: 5432
 });
 
-async function pizza(){
+async function selectAll(s){
   const client = await pool.connect();
-  let res = await client.query('SELECT * FROM pizza');
+  let res = await client.query('SELECT * FROM ' + s);
   client.release();
   return res;
 }
-async function menu(){
-  const client = await pool.connect();
-  let res = await client.query('SELECT * FROM menu');
-  client.release();
-  return res;
-}
+
 server.get('/', function (req, res) {
   res.sendFile("accueil.html", {root: 'public'});
 });
@@ -36,12 +31,22 @@ server.listen(port, () => {
 });
 
 server.get("/pizza", (req, res) => {
-    let a = pizza().then(resultat=>{res.json(resultat.rows)})
+    let a = selectAll('pizza').then(resultat=>{res.json(resultat.rows)})
     .catch(err => console.err-(err.stack));
 
 });
+server.get("/entree", (req, res) => {
+  let a = selectAll('entree').then(resultat=>{res.json(resultat.rows)})
+  .catch(err => console.err-(err.stack));
+
+});
+server.get("/boisson", (req, res) => {
+  let a = selectAll('boisson').then(resultat=>{res.json(resultat.rows)})
+  .catch(err => console.err-(err.stack));
+
+});
 server.get("/menu", (req, res) => {
-  let a = menu().then(resultat=>{res.json(resultat.rows)})
+  let a = selectAll('menu').then(resultat=>{res.json(resultat.rows)})
   .catch(err => console.err-(err.stack));
 
 });

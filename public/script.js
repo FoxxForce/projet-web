@@ -51,6 +51,8 @@ $(document).ready(function() {
         $('body').append(elphoto);
         $('#liste'+data[i]['nom']).hide();
         $('#'+data[i]['nom']).click(function() {
+          $('.popupButton').prop('disabled', true);
+          $('.ajoutPizza').prop('disabled', false);
           $('#popup').show();
           $('.pizza').show();
           $('.ajoutPizza').hide();
@@ -61,8 +63,35 @@ $(document).ready(function() {
             if($('.pizza input[type=checkbox]:checked').length > data[i]['nb_pizza']) {
                 this.checked = false;
             }
+            else if($('.pizza input[type=checkbox]:checked').length == data[i]['nb_pizza']){
+              $('.ajoutEntree').prop('disabled', false);
+            }else{
+              $('.ajoutEntree').prop('disabled', true);
+            }
           });
-          $('.ajoutPizza').click(function(){
+          $('.entree .choix').off().on('change', function() {
+            if($('.entree input[type=checkbox]:checked').length > data[i]['nb_entree']) {
+                this.checked = false;
+            }
+            else if($('.entree input[type=checkbox]:checked').length == data[i]['nb_entree']){
+              $('.ajoutBoisson').prop('disabled', false);
+            }
+            else{
+              $('.ajoutBoisson').prop('disabled', true);
+            }
+          });
+          $('.boisson .choix').off().on('change', function() {
+            if($('.boisson input[type=checkbox]:checked').length > data[i]['nb_boisson']) {
+                this.checked = false;
+            }
+            else if($('.boisson input[type=checkbox]:checked').length == data[i]['nb_boisson']){
+                 $('.confirmer').prop('disabled', false);
+            }  
+            else{
+              $('.confirmer').prop('disabled', true);
+            }
+          });
+          $('.ajoutPizza').off().click(function(){
             $('#popup .container-fluid').hide();
             $('.ajoutPizza').hide();
             $('.ajoutBoisson').hide();
@@ -70,13 +99,8 @@ $(document).ready(function() {
             $('#popup').show();
             $('.pizza').show();
             $('.confirmer').hide();
-            $('.pizza .choix').off().on('change', function() {
-              if($('.pizza input[type=checkbox]:checked').length > data[i]['nb_pizza']) {
-                  this.checked = false;
-              }
-            });
           });
-          $('.ajoutEntree').click(function(){
+          $('.ajoutEntree').off().click(function(){
             $('#popup .container-fluid').hide();
             $('.ajoutPizza').show();
             $('.confirmer').hide();
@@ -84,13 +108,9 @@ $(document).ready(function() {
             $('.ajoutEntree').hide();
             $('#popup').show();
             $('.entree').show();
-            $('.entree .choix').off().on('change', function() {
-              if($('.entree input[type=checkbox]:checked').length > data[i]['nb_entree']) {
-                  this.checked = false;
-              }
-            });
+           
           });
-          $('.ajoutBoisson').click(function(){
+          $('.ajoutBoisson').off().click(function(){
             $('.confirmer').show();
             $('#popup .container-fluid').hide();
             $('.ajoutPizza').hide();
@@ -98,11 +118,6 @@ $(document).ready(function() {
             $('.ajoutEntree').show();
             $('#popup').show();
             $('.boisson').show();
-            $('.boisson .choix').off().on('change', function() {
-              if($('.boisson input[type=checkbox]:checked').length > data[i]['nb_boisson']) {
-                  this.checked = false;
-              }
-            });
           });
       });
         
@@ -117,6 +132,7 @@ $(document).ready(function() {
     $('.popupClose').click(function(){
         $('#popup').hide();
         $('#popup .container-fluid').hide();
+        $('.choix').prop( "checked", false );
     });
 
 

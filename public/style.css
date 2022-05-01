@@ -15,10 +15,10 @@
     padding: 15px 5%;
 }
 
-.popupClose:hover {
+.fermerPopup:hover {
     background-color: black;
 }
-.popupButton {
+.boutonPopup {
     cursor: pointer;
     font-size: 20px;
     margin: 20px;
@@ -30,6 +30,13 @@
     overflow: scroll;
 }
 
-button{
+.boutonMenu{
     display: block;
+}
+#bas{
+    position: fixed; 
+    width: 100%; 
+    bottom: 0;
+    left: 0;
+    text-align: right;
 }

@@ -16,16 +16,16 @@ create table Ingredient (nom text primary key, prix int, photo text);
 create table Composition (nomPizza text, nomIngredient text,
                           FOREIGN KEY (nomPizza) REFERENCES Pizza(nom),
                           FOREIGN KEY (nomIngredient) REFERENCES Ingredient(nom));
-create table Menu (nom text primary key, nb_pizza integer, nb_boisson integer, max_boisson integer, nb_entree integer);
+create table Menu (nom text primary key, prix integer, nb_pizza integer, nb_boisson integer, max_boisson integer, nb_entree integer);
 
 drop user if exists useradmin;
 create user useradmin with password 'mypass';
 grant all privileges on all tables in schema public to useradmin;
 
 insert into menu values
-  ('Extra', 2, 2, 2, 2),
-  ('Mega', 3, 2, 2, 2),
-  ('Giga', 4, 3, 2, 2);
+  ('Extra',5, 2, 2, 2, 2),
+  ('Mega',10, 3, 2, 2, 2),
+  ('Giga',20, 4, 3, 2, 2);
 
 insert into pizza values
   ('MARGdHERITA', 20, 'MARGHERITA.webp'),

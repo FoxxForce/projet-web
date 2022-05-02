@@ -91,6 +91,8 @@ server.post("/formulaire-client", (req, res) =>{
     regexPostal.test(req.body.postal) == false || req.body.city === '' ||
     regexPhone.test(req.body.phone) == false || regexEmail.test(req.body.email) == false ||
     req.body.time<'11:00' || req.body.time>'23:00'){
+      var now = new Date();
+      var hourPlusOne = now.getHours() + 1;
       let data = {
         time: ("0"+hourPlusOne).slice(-2)+':'+("0"+now.getMinutes()).slice(-2),
         error: "un champs n'a pas été respecté",

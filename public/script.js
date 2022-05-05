@@ -4,6 +4,34 @@ $(document).ready(function() {
   let info_produits = {'pizza' : {}, 'entree' : {}, 'boisson' : {}, 'menu' : {}};
   let panier = {'pizza' : [], 'entree' : [], 'boisson' : [], 'menu' : []};
   let nb_menu = 0;
+  function ajoutPanier(e){
+    for(let i=0; i<panier[e].length; i++){
+      $("#panier").append('<p id="' + e + i + '">' + panier[e][i] + '</p>');
+     }
+  }
+  function ajoutMenuPanier(){
+    for(let i in panier["menu"]){
+      console.log(panier["menu"][i]["nom"])
+      $("#panier").append('<p id="' + i + '">' + panier["menu"][i]["nom"]);
+      for(let j in panier["menu"][i]["entree"]){
+        $("#panier").append('<br>' +panier["menu"][i]["entree"][j] );
+      }
+      for(let j in panier["menu"][i]["pizza"]){
+        $("#panier").append('<br>' + panier["menu"][i]["pizza"][j] );
+      }
+      for(let j in panier["menu"][i]["boisson"]){
+        $("#panier").append('<br>' + panier["menu"][i]["boisson"][j] );
+      }
+      $("#panier").append('</p>');
+    }
+  }
+  function actualiserPanier(){
+   $("#panier").empty();
+   ajoutPanier("pizza");
+   ajoutPanier("entree");
+   ajoutPanier("boisson")
+   ajoutMenuPanier();
+  }
   function actualiserPrix(){
     let prix = 0;
     for(let i in panier['pizza']){
@@ -133,6 +161,7 @@ $(document).ready(function() {
             $('#popup .container-fluid').hide();
             $('.choix').prop( "checked", false );
             actualiserPrix();
+            actualiserPanier();
             nb_menu++;
           })
          
@@ -146,7 +175,7 @@ $(document).ready(function() {
   }
 
   $('.fermerPopup').click(function(){
-    console.log(info_produits);
+    console.log(panier);
     $('#popup').hide();
     $('#popup .container-fluid').hide();
     $('.choix').prop( "checked", false );

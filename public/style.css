@@ -40,3 +40,10 @@
     left: 0;
     text-align: right;
 }
+
+#panier{
+    float: right;
+    padding-bottom: 15px;
+    height: 600px;
+    overflow-y: scroll
+}

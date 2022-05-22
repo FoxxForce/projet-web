@@ -37,22 +37,21 @@ server.listen(port, () => {
 server.get("/pizza", (req, res) => {
     let a = selectAll('pizza').then(resultat=>{res.json(resultat.rows)})
     .catch(err => console.err-(err.stack));
-
 });
+
 server.get("/entree", (req, res) => {
   let a = selectAll('entree').then(resultat=>{res.json(resultat.rows)})
   .catch(err => console.err-(err.stack));
-
 });
+
 server.get("/boisson", (req, res) => {
   let a = selectAll('boisson').then(resultat=>{res.json(resultat.rows)})
   .catch(err => console.err-(err.stack));
-
 });
+
 server.get("/menu", (req, res) => {
   let a = selectAll('menu').then(resultat=>{res.json(resultat.rows)})
   .catch(err => console.err-(err.stack));
-
 });
 
 
@@ -72,25 +71,28 @@ server.get('/formulaire', function (req, res) {
 
 async function addOrder(data){
   const client = await pool.connect();
-  let requestSQL = "insert into commande values(\'"+data.body.lastname+"\', \'"+data.body.firstname+
-  "\', \'"+data.body.adress+"\', "+data.body.postal+", \'"+data.body.city+"\', \'"+data.body.supp+
-  "\', \'"+data.body.phone+"\', \'"+data.body.email+"\', \'"+data.body.time+"\');";
-  console.log(requestSQL);
+  let requestSQL = "insert into commande ( nom, prenom, adresse, code_postale, ville, supp, tel, email , heure) values(\'"+data.body.form.lastname+"\', \'"+data.body.form.firstname+
+  "\', \'"+data.body.form.adress+"\', "+data.body.form.postal+", \'"+data.body.form.city+"\', \'"+data.body.form.supp+
+  "\', \'"+data.body.form.phone+"\', \'"+data.body.form.email+"\', \'"+data.body.form.time+"\');";
   await client.query(requestSQL);
+  let res = await client.query('SELECT MAX(id) FROM commande');
   client.release();
+  return res;
 }
 
+
 server.post("/formulaire-client", (req, res) =>{
+  
   let regexAdress = /^[0-9]+ {1}.+$/;
   let regexPostal = /^[0-9]{5}$/;
   let regexPhone = /^[0-9]{10}$/;
   let regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
-  if(req.body.lastname === '' || req.body.firstname === '' ||
-    req.body.firstname === '' || regexAdress.test(req.body.adress) == false ||
-    regexPostal.test(req.body.postal) == false || req.body.city === '' ||
-    regexPhone.test(req.body.phone) == false || regexEmail.test(req.body.email) == false ||
-    req.body.time<'11:00' || req.body.time>'23:00'){
+  if(req.body.form.lastname === '' || req.body.form.firstname === '' ||
+    req.body.form.firstname === '' || regexAdress.test(req.body.form.adress) == false ||
+    regexPostal.test(req.body.form.postal) == false || req.body.form.city === '' ||
+    regexPhone.test(req.body.form.phone) == false || regexEmail.test(req.body.form.email) == false ||
+    req.body.form.time<'11:00' || req.body.form.time>'23:00'){
       var now = new Date();
       var hourPlusOne = now.getHours() + 1;
       let data = {
@@ -99,7 +101,11 @@ server.post("/formulaire-client", (req, res) =>{
       };
       res.render('formulaire.ejs', data);
   }else{
-    addOrder(req);
+    let panier = JSON.stringify(req.body.panier);
+    addOrder(req).then(resultat=>{console.log('commande' + resultat.rows[0]['max']);
+    fs.writeFileSync('commande' + resultat.rows[0]['max'], panier);})
+    .catch(err => console.err-(err.stack));
     res.send("Merci, demande prise en compte");
   }
 });
+

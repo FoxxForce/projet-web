@@ -6,7 +6,7 @@ drop table if exists Ingredient cascade;
 drop table if exists Sauce cascade;
 drop table if exists Composition cascade;
 drop table if exists Menu cascade;
-
+drop table if exists commande cascade;
 
 create table Entree (nom text primary key, prix integer, photo text);
 create table Sauce (nom text primary key, prix int, photo text);
@@ -17,10 +17,12 @@ create table Composition (nomPizza text, nomIngredient text,
                           FOREIGN KEY (nomPizza) REFERENCES Pizza(nom),
                           FOREIGN KEY (nomIngredient) REFERENCES Ingredient(nom));
 create table Menu (nom text primary key, prix integer, nb_pizza integer, nb_boisson integer, max_boisson integer, nb_entree integer);
-
+create table commande (id serial primary key , nom text, prenom text, adresse text, code_postale varchar(5), ville text, supp text, tel text, email text, heure time);
 drop user if exists useradmin;
 create user useradmin with password 'mypass';
 grant all privileges on all tables in schema public to useradmin;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO useradmin;
+
 
 insert into menu values
   ('Extra',5, 2, 2, 2, 2),

@@ -2,7 +2,7 @@
 $(document).ready(function() {
   let data_menu;
   let info_produits = {'pizza' : {}, 'entree' : {}, 'boisson' : {}, 'menu' : {}};
-  let panier = {'pizza' : [], 'entree' : [], 'boisson' : [], 'menu' : []};
+  let panier = {'pizza' : [], 'entree' : [], 'boisson' : [], 'menu' : {}};
   let nb_menu = 0;
   function ajoutPanier(e){
     for(let i=0; i<panier[e].length; i++){
@@ -11,7 +11,6 @@ $(document).ready(function() {
   }
   function ajoutMenuPanier(){
     for(let i in panier["menu"]){
-      console.log(panier["menu"][i]["nom"])
       $("#panier").append('<p id="' + i + '">' + panier["menu"][i]["nom"]);
       for(let j in panier["menu"][i]["entree"]){
         $("#panier").append('<br>' +panier["menu"][i]["entree"][j] );
@@ -70,7 +69,6 @@ $(document).ready(function() {
     $.get("http://localhost:8080/menu" ,{},
     function(data) {
       let elphoto = "";
-      
       for(let i=0; i<data.length; i++){
         info_produits['menu'][data[i]["nom"]] = data[i];
         elphoto = '<button id="' + data[i]['nom'] +'" class="boutonMenu" type="button">' +data[i]['nom']+ ' menu</button>';
@@ -86,7 +84,7 @@ $(document).ready(function() {
           $('#ajoutEntree').show();
           $('#confirmer').hide();
           $('.pizza .choix').off().on('change', function() {
-            if($('.pizza input[type=checkbox]:checked').length > data[i]['nb_pizza']) {
+            if($('.pizza input[type=checkbox]:checked').length > data[i]['nb_pizza']){
                 this.checked = false;
             }
             else if($('.pizza input[type=checkbox]:checked').length == data[i]['nb_pizza']){
@@ -107,7 +105,7 @@ $(document).ready(function() {
             }
           });
           $('.boisson .choix').off().on('change', function() {
-            if($('.boisson input[type=checkbox]:checked').length > data[i]['nb_boisson']) {
+            if($('.boisson input[type=checkbox]:checked').length > data[i]['nb_boisson']){
                 this.checked = false;
             }
             else if($('.boisson input[type=checkbox]:checked').length == data[i]['nb_boisson']){
@@ -166,7 +164,6 @@ $(document).ready(function() {
           })
          
       });
-        
       }
 
 
@@ -174,8 +171,35 @@ $(document).ready(function() {
 
   }
 
+  function formToJSON(form) {
+    let array = $(form).serializeArray(); 
+    let json = {};
+    $.each(array, function () {
+      json[this.name] = this.value || "";
+    });
+    return json;
+  }
+  
+  $("#commander").click(function(){
+    $.get("http://localhost:8080/formulaire" ,{},
+    function(data) {
+      let doc = document.open('text/html', 'replace');
+      doc.write(data);
+      doc.close();
+      
+      $('#submit').click(function(e){
+        e.preventDefault();
+        $.post("http://localhost:8080/formulaire-client",  {'form' : formToJSON('#form'), 'panier' : panier},
+        function(data) {
+          let doc = document.open('text/html', 'replace');
+          doc.write(data);
+          doc.close();
+        });
+    });
+    });
+  });
+
   $('.fermerPopup').click(function(){
-    console.log(panier);
     $('#popup').hide();
     $('#popup .container-fluid').hide();
     $('.choix').prop( "checked", false );

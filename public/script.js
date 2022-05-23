@@ -1,17 +1,23 @@
 
 $(document).ready(function() {
   let data_menu;
-  let info_produits = {'pizza' : {}, 'entree' : {}, 'boisson' : {}, 'menu' : {}};
-  let panier = {'pizza' : [], 'entree' : [], 'boisson' : [], 'menu' : {}};
+  let info_produits = {'pizza' : new Map(), 'entree' : new Map(), 'boisson' : new Map(), 'menu' : new Map()};
+  let panier = {'pizza' : [], 'entree' : [], 'boisson' : [], 'menu' : new Map()};
   let nb_menu = 0;
+  $('#commander').prop('disabled', true);
   function ajoutPanier(e){
     for(let i=0; i<panier[e].length; i++){
-      $("#panier").append('<p id="' + e + i + '">' + panier[e][i][1] + '</p>');
+      $("#panier").append('<p class="elementPanier">' + panier[e][i][1] + '  <span class="retirerPanier" id="' + e + i + '">X</span>' + '</p>');
+      $('#' +  e + i).off().click(function(){
+        panier[e].splice(panier[e].indexOf(panier[e][i]), 1);
+        actualiserPrix();
+        actualiserPanier();
+      });
      }
   }
   function ajoutMenuPanier(){
     for(let i in panier["menu"]){
-      $("#panier").append('<p id="' + i + '">' + panier["menu"][i]["nom"]);
+      $("#panier").append('<p>' + panier["menu"][i]["nom"] + '  <span class="retirerPanier" id="' + i + '">X</span>');
       for(let j in panier["menu"][i]["entree"]){
         $("#panier").append('<br>' +panier["menu"][i]["entree"][j] );
       }
@@ -22,6 +28,17 @@ $(document).ready(function() {
         $("#panier").append('<br>' + panier["menu"][i]["boisson"][j] );
       }
       $("#panier").append('</p>');
+      $('#'+ i).off().click(function(){
+        p = new Map();
+        for(j in panier["menu"]){
+          if(j!==i){
+            p[j] = panier['menu'][j];
+          }
+        }
+        panier['menu'] = p;
+        actualiserPrix();
+        actualiserPanier();
+      });
     }
   }
   function actualiserPanier(){
@@ -44,6 +61,11 @@ $(document).ready(function() {
     }
     for(let i in panier['menu']){
       prix += parseInt(info_produits['menu'][panier['menu'][i]['nom']]['prix']);
+    }
+    if(prix===0){
+      $('#commander').prop('disabled', true);
+    }else{
+      $('#commander').prop('disabled', false);
     }
     $('#prix').text(prix + '€');
   }
@@ -90,13 +112,13 @@ $(document).ready(function() {
       for(let i=0; i<data.length; i++){
         info_produits['menu'][data[i]["nom"]] = data[i];
         elphoto = '<button id="' + data[i]['nom'] +'" class="boutonMenu" type="button">' +data[i]['nom']+ ' menu</button>';
-        $('body').append(elphoto);
+        $('#gauche').append(elphoto);
         $('#liste'+data[i]['nom']).hide();
         $('#'+data[i]['nom']).click(function() {
           $('.boutonPopup').prop('disabled', true);
           $('#ajoutPizza').prop('disabled', false);
-          $('#popup').show();
-          $('.pizza').show();
+          $('#popup').slideToggle();
+          $('.pizza').slideToggle();
           $('#ajoutPizza').hide();
           $('#ajoutBoisson').hide();
           $('#ajoutEntree').show();
@@ -139,7 +161,7 @@ $(document).ready(function() {
             $('#ajoutBoisson').hide();
             $('#ajoutEntree').show();
             $('#popup').show();
-            $('.pizza').show();
+            $('.pizza').slideToggle();
             $('#confirmer').hide();
           });
           $('#ajoutEntree').off().click(function(){
@@ -149,7 +171,7 @@ $(document).ready(function() {
             $('#ajoutBoisson').show();
             $('#ajoutEntree').hide();
             $('#popup').show();
-            $('.entree').show();
+            $('.entree').slideToggle();
            
           });
           $('#ajoutBoisson').off().click(function(){
@@ -159,7 +181,7 @@ $(document).ready(function() {
             $('#ajoutBoisson').hide();
             $('#ajoutEntree').show();
             $('#popup').show();
-            $('.boisson').show();
+            $('.boisson').slideToggle();
           });
           $('#confirmer').off().click(function(){
             panier['menu']['menu'+nb_menu] = {'prix' : data[i]['prix'], 'nom' : data[i]['nom'], 'pizza' : [], 'boisson' : [], 'entree' : []};

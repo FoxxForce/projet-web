@@ -41,12 +41,6 @@
     text-align: right;
 }
 
-#panier{
-    float: right;
-    padding-bottom: 15px;
-    height: 600px;
-    overflow-y: scroll
-}
 
 h1{
   text-align: center;
@@ -59,4 +53,24 @@ h1{
     height: 100%;
     width: 40%;
     background-color: lightgrey;
+}
+
+#panier{
+    text-align: center;
+    
+}
+
+.nos{
+    font-size: xx-large;
+    border: solid black 1px;
+    background-color: grey;
+}
+
+.retirerPanier{
+    background-color: red;
+
+}
+.elementPanier{
+    border: solid black 1px;
+    background-color: grey;
 }

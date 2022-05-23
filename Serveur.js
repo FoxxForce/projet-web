@@ -106,6 +106,7 @@ server.post("/formulaire-client", (req, res) =>{
     fs.writeFileSync('commande' + resultat.rows[0]['max'], panier);})
     .catch(err => console.err-(err.stack));
     res.send("Merci, demande prise en compte");
+    
   }
 });
 

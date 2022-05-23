@@ -41,33 +41,45 @@
       <ul>
       <% for(let i in commande){ %>
         <li><%= i %>
-          <% for(let j in commande[i]){ %>
-          <ul>
-            <li><%= j %>
-              <% for(let k in commande[i][j]){ %>
-              <li>
-                <%= k %> :
-                <% commande[i][j][k].toString().split(",").forEach(element =>{ %>
-                  <% if(k === "prix"){%><%= element %> €
-                  <% }else if(k === "nom"){%><%= element %>
-                  <% }else{ %>
-                    <ul>
-                      <li>
-                        <%= element %>
-                      </li>
-                    </ul>
-                  <% } %>
-                <% }); %>
+          <% if(i === "menu"){%>
+            <% for(let j in commande[i]){ %>
+            <ul>
+              <li><%= j %>
+                <% for(let k in commande[i][j]){ %>
+                <li>
+                  <%= k %> :
+                  <% commande[i][j][k].toString().split(",").forEach(element =>{ %>
+                    <% if(k === "prix"){%><%= element %> €
+                    <% }else if(k === "nom"){%><%= element %>
+                    <% }else{ %>
+                      <ul>
+                        <li>
+                          <%= element %>
+                        </li>
+                      </ul>
+                    <% } %>
+                  <% }); %>
+                </li>
+                <% } %>
               </li>
-              <% } %>
-            </li>
-            <br>
-          </ul>
+              <br>
+            </ul>
+            <% } %>
+          <% }else{ %>
+            <ul>
+              <li>
+                <% let pr = commande[i].toString().split(",") %>
+                prix du produit : <%= pr[0] %> €
+              </li>
+              <li>
+                nom du produit : <%= pr[1] %>
+              </li>
+            </ul>
           <% } %>
         </li>
       <% } %>
       </ul>
-      <form action="/livraison" method="get">
+      <form action="/deja-livre" method="post">
         <input type="submit" name="already" value="Commande <%=client.id%> déjà livrée" />
       </form>
     </div>

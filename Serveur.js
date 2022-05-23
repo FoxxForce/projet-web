@@ -78,12 +78,16 @@ server.post("/formulaire-client", (req, res) =>{
     addOrder(req, pool).then(resultat=>{console.log('commande' + resultat.rows[0]['max']);
     fs.writeFileSync('commande' + resultat.rows[0]['max'], panier);})
     .catch(err => console.err-(err.stack));
-    res.sendFile("validation.html", {root: 'public'});
+    res.redirect("/");
   }
 });
 
-server.get("/livraison", (req, res) =>{
+server.post("/deja-livre", (req, res) =>{
   let commande = deja_livre_ou_non(req, pool);
+  res.redirect("/livraison");
+});
+
+server.get("/livraison", (req, res) =>{
   getOlderCommand(pool).then(resultat=>{
     if(resultat === undefined){
       let error = {
@@ -100,6 +104,8 @@ server.get("/livraison", (req, res) =>{
       };
       res.render('livraison.ejs', alldata);
     } catch (err) {
+      console.log(resultat.id);
+      console.log(commande);
       let error = {
         nature: "Commande introuvable, veuillez contacter le SAV",
       }

@@ -39,10 +39,10 @@ async function deleteCommand(id, pool){
   client.release();
 }
 
-function deja_livre_ou_non(req){
+function deja_livre_ou_non(req, pool){
   let commande = 0;
-  if(req.query.already !== undefined){
-    let already = req.query.already;
+  if(req.body.already !== undefined){
+    let already = req.body.already;
     let splitted = already.split(' ');
     commande = parseInt(splitted[1], 10);
     fs.unlink("commande"+commande, (err) => {

@@ -30,33 +30,29 @@ insert into menu values
   ('Giga', 60, 4, 3, 2, 2);
 
 insert into pizza values
-  ('MARGdHERITA', 20, 'MARGHERITA.webp'),
-  ('BEreLLACHO', 20, 'BELLACHO.webp'),
-  ('MARGghHERITA1', 20, 'MARGHERITA.webp'),
-  ('MARGrHERIT2', 20, 'MARGHERITA.webp'),
-  ('BELLgACHO2', 20, 'BELLACHO.webp'),
-  ('MARGrHERITA14', 20, 'MARGHERITA.webp'),
-  ('MARGHERIT25', 20, 'MARGHERITA.webp'),
-  ('BELLgfACHO6', 20, 'BELLACHO.webp'),
-  ('MARGHERITA17', 20, 'MARGHERITA.webp'),
-  ('MARGHrERIT28', 20, 'MARGHERITA.webp'),
-  ('BELLfgACHO9', 20, 'BELLACHO.webp'),
-  ('MARGHgfdERITA110', 20, 'MARGHERITA.webp'),
-  ('MARGHEgfRIT212', 20, 'MARGHERITA.webp'),
-  ('BELLACfgHO14', 20, 'BELLACHO.webp'),
-  ('MARGHERITA171', 20, 'MARGHERITA.webp'),
-  ('MARGHE4RIT2', 20, 'MARGHERITA.webp'),
-  ('BELLA4CHO', 20, 'BELLACHO.webp'),
-  ('MARGHERITA1', 20, 'MARGHERITA.webp'),
-  ('MARGH87ERIT2', 20, 'MARGHERITA.webp'),
-  ('BE46LgLACHO', 20, 'BELLACHO.webp');
+  ('Végétarienne', 20, 'vegetarienne.jpg'),
+  ('Texane Barbecue', 20, 'texanebarbecue.jpg'),
+  ('Nordique', 20, 'nordique.jpg'),
+  ('Margherita', 20, 'margherita.jpg'),
+  ('Orientale', 20, 'orientale.jpg'),
+  ('Chicken Barbecue', 20, 'chickenbarbecue.jpg'),
+  ('Chèvre Miel', 20, 'chevremiel.jpg'),
+  ('Raclette', 20, 'raclette.jpg'),
+  ('Suprême', 20, 'supreme.jpg'),
+  ('Montagnarde', 20, 'montagnarde.jpg'),
+  ('Queen', 20, 'queen.jpg'),
+  ('Pepperoni', 20, 'pepperoni.jpg'),
+  ('BPM', 20, 'bpm.jpg'),
+  ('4 4fromages', 20, '4fromages.jpg');
+
 insert into entree values
-  ('SALADE1', 20, 'MARGHERITA.webp'),
-  ('SALADE2', 20, 'MARGHERITA.webp'),
-  ('SALADE3', 20, 'BELLACHO.webp'),
-  ('SALADE4', 20, 'MARGHERITA.webp');
+  ('Salade de pâte', 6, 'saladepate.jpg'),
+  ('Salade Grecque', 7, 'saladegrecque'),
+  ('Salade César', 6, 'saladecesar'),
+  ('Salade de fruits', 5, 'saladefruit.jpg');
+
 insert into boisson values
-  ('BOISSON1', 1, 20, 'MARGHERITA.webp'),
-  ('BOISSON2', 1, 20, 'BELLACHO.webp'),
-  ('BOISSON3', 1, 20, 'MARGHERITA.webp'),
-  ('BOISSON4', 1, 20, 'MARGHERITA.webp');
+  ('Sprite', 1, 20, 'sprite'),
+  ('Ice tea', 1, 20, 'icetea'),
+  ('Coca-Cola', 1, 20, 'coca'),
+  ('Fanta', 1, 20, 'fanta');

@@ -34,8 +34,8 @@
     display: block;
 }
 #bas{
-    position: fixed; 
-    width: 100%; 
+    position: fixed;
+    width: 100%;
     bottom: 0;
     left: 0;
     text-align: right;
@@ -46,4 +46,17 @@
     padding-bottom: 15px;
     height: 600px;
     overflow-y: scroll
+}
+
+h1{
+  text-align: center;
+}
+
+#contenu_livraison{
+    margin: auto;
+    padding: 20px;
+    border: 5px;
+    height: 100%;
+    width: 40%;
+    background-color: lightgrey;
 }

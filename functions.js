@@ -8,6 +8,9 @@ async function selectAll(s, pool){
 function getData(error){
   var now = new Date();
   var hourPlusOne = now.getHours() + 1;
+  if(hourPlusOne === 24){
+    hourPlusOne = 0;
+  }
   let data = {
     time: ("0"+hourPlusOne).slice(-2)+':'+("0"+now.getMinutes()).slice(-2),
     error: error,

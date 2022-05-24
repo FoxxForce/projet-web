@@ -74,3 +74,9 @@ h1{
     border: solid black 1px;
     background-color: grey;
 }
+#hpanier{
+    background-color: grey;
+}
+#panier{
+    background-color: lightgrey;
+}

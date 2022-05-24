@@ -8,6 +8,7 @@
     top:0;
     width:100%;
     z-index:10000;
+    background-color: lightgrey;
 }
 
 #popup > div {
@@ -46,7 +47,7 @@ h1{
   text-align: center;
 }
 
-#contenu_livraison{
+#contenu_livraison {
     margin: auto;
     padding: 20px;
     border: 5px;
@@ -54,7 +55,14 @@ h1{
     width: 40%;
     background-color: lightgrey;
 }
-
+#formulaire{
+    margin: auto;
+    padding: 20px;
+    border: 5px;
+    height: 100%;
+    width: 40%;
+    background-color: lightgrey;
+}
 #panier{
     text-align: center;
     
@@ -80,3 +88,8 @@ h1{
 #panier{
     background-color: lightgrey;
 }
+
+.photo{
+    background-color: lightgrey;
+}
+

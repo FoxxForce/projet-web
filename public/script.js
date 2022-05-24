@@ -78,6 +78,9 @@ $(document).ready(function() {
     function(data) {
       let elphoto = '<div class="container-fluid '+e +'"><div class="row">';
       for(let i=0; i<data.length; i++){
+        if(e==='boisson' && data[i]['taille']!=1){
+          continue;
+        }
         info_produits[e][data[i]["nom"].replace(" ", '_')] = data[i];
         elphoto += ' <div id="' + data[i]["nom"].replace(" ", '_') + '"';
         elphoto += ' class="col-lg-3 col-md-4 col-sm-6 photo">';

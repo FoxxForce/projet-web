@@ -71,7 +71,7 @@ server.post("/formulaire-client", (req, res) =>{
     regexPostal.test(req.body.form.postal) == false || req.body.form.city === '' ||
     regexPhone.test(req.body.form.phone) == false || regexEmail.test(req.body.form.email) == false ||
     req.body.form.time<'11:00' || req.body.form.time>'23:00'){
-      data = getData("Erreur dans le formulaire");
+      data = getData("erreur dans le formulaire, tous les champs doivent être remplis et l'horaire doit être compris entre 11:00 et 23:00 ");
       res.render('formulaire.ejs', data);
   }else{
     let panier = JSON.stringify(req.body.panier);

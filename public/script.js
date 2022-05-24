@@ -21,9 +21,9 @@ $(document).ready(function() {
   }
   function ajoutMenuPanier(){
     for(let i in panier["menu"]){
-      jpanier.append('<p>' + panier["menu"][i]["nom"] + '  <span class="retirerPanier" id="' + i + '">X</span>');
+      jpanier.append('<p class="elementPanier" >' + panier["menu"][i]["nom"] + '  <span class="retirerPanier" id="' + i + '">X</span>');
       for(let j in panier["menu"][i]["entree"]){
-        jpanier.append('<br>' +panier["menu"][i]["entree"][j] );
+        jpanier.append(panier["menu"][i]["entree"][j] );
       }
       for(let j in panier["menu"][i]["pizza"]){
         jpanier.append('<br>' + panier["menu"][i]["pizza"][j] );
@@ -80,9 +80,8 @@ $(document).ready(function() {
       for(let i=0; i<data.length; i++){
         info_produits[e][data[i]["nom"].replace(" ", '_')] = data[i];
         elphoto += ' <div id="' + data[i]["nom"].replace(" ", '_') + '"';
-        console.log(data[i]["nom"].replace(/ /g, '_').replace('.', '_'));
         elphoto += ' class="col-lg-3 col-md-4 col-sm-6 photo">';
-        elphoto += '<p>' +data[i]["nom"] + '<input type="checkbox" class="choix" value="'+data[i]["nom"].replace(/ /g, '_').replace('.', '_')+'"></p>' + '<img height="200" width="200"  src="../images/'+data[i]["photo"] + '"></div>';
+        elphoto += '<p>' +data[i]["nom"] + '<input type="checkbox" class="choix" value="'+data[i]["nom"]+'"></p>' + '<img height="200" width="200"  src="../images/'+data[i]["photo"] + '"></div>';
       }
       elphoto += '</div></div>';
       $('#popup').append(elphoto);
@@ -116,14 +115,15 @@ $(document).ready(function() {
       let elphoto = "";
       for(let i=0; i<data.length; i++){
         info_produits['menu'][data[i]["nom"]] = data[i];
-        elphoto = '<li class="nos" id="' + data[i]['nom'] +'" class="boutonMenu">' +data[i]['nom']+ ' menu</li>';
+        elphoto = '<li class="nos" id="' + data[i]['nom'] +'" class="boutonMenu">' +data[i]['nom'] + ' menu : Pizza x' +data[i]['nb_pizza']
+        +' Boisson x' +  data[i]['nb_boisson']+ ' Entrée x' + data[i]['nb_entree'] +'</li>';
         $('#gauche').append(elphoto);
         $('#liste'+data[i]['nom']).hide();
         $('#'+data[i]['nom']).click(function() {
           $('.boutonPopup').prop('disabled', true);
           $('#ajoutPizza').prop('disabled', false);
-          $('#popup').slideToggle();
-          $('.pizza').slideToggle();
+          $('#popup').show();
+          $('.pizza').show();
           $('#ajoutPizza').hide();
           $('#ajoutBoisson').hide();
           $('#ajoutEntree').show();

@@ -91,7 +91,7 @@ $(document).ready(function() {
       for(let i=0; i<data.length; i++){
         elphoto += ' <div id="' + data[i]["nom"].replace(/ /g, '_') + '"';
         elphoto += ' class="col-lg-3 col-md-4 col-sm-6 photo">';
-        elphoto += '<p>' +data[i]["nom"] +'<button id="ajout'+data[i]["nom"].replace(/ /g, '_').replace('.', '_')+'">Ajouter</button></p>'+ '<img height="200" width="200"  src="../images/'+data[i]["photo"] + '"></div>';
+        elphoto += '<p>' +data[i]["nom"] + ' ' +data[i]['prix'] + '€'+'<button id="ajout'+data[i]["nom"].replace(/ /g, '_').replace('.', '_')+'">Ajouter</button></p>'+ '<img height="200" width="200"  src="../images/'+data[i]["photo"] + '"></div>';
        
       }
       elphoto += '</div></div>';
@@ -115,7 +115,7 @@ $(document).ready(function() {
       let elphoto = "";
       for(let i=0; i<data.length; i++){
         info_produits['menu'][data[i]["nom"]] = data[i];
-        elphoto = '<li class="nos" id="' + data[i]['nom'] +'" class="boutonMenu">' +data[i]['nom'] + ' menu : Pizza x' +data[i]['nb_pizza']
+        elphoto = '<li class="nos" id="' + data[i]['nom'] +'" class="boutonMenu">' +data[i]['nom'] + ' menu ' +data[i]['prix']+ '€ : Pizza x' +data[i]['nb_pizza']
         +' Boisson x' +  data[i]['nb_boisson']+ ' Entrée x' + data[i]['nb_entree'] +'</li>';
         $('#gauche').append(elphoto);
         $('#liste'+data[i]['nom']).hide();
